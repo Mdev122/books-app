@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books App</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main>
+    <div class="container">
+
+      <!-- FILTERS FORM -->
+      <section class="filters">
+        <form>
+          <label>
+            Adults only: <input name="filter" value="adults" type="checkbox">
+          </label>
+          <label>
+            Non-fiction: <input name="filter" value="nonFiction" type="checkbox">
+          </label>
+        </form>
+      </section>
+
+      <!-- BOOKS PANEL -->
+      <section class="books-panel">
+        <h1>Your collection</h1>
+        <ul class="books-list">
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <!-- BOOK TEMPLATE -->
+  <script id="template-book" type="text/x-handlebars-template">
+    <li class="book" data-id="{{ id }}">
+
+      <!-- title and price -->
+      <header class="book__header">
+        <h2 class="book__name">{{ name }}</h2>
+        <p class="product__base-price no-spacing">${{ price }}</p>
+      </header>
+
+      <!-- cover image -->
+      <a href="#" class="book__image" data-id="{{ id }}">
+        <figure>
+          <img src="{{ image }}" alt="{{ name }}">
+        </figure>
+      </a>
+      <!-- ratings -->
+      <div class="book__rating">
+        <div class="book__rating__fill">
+          {{ rating }}/10
+        </div>
+      </div>
+
+    </li>
+  </script>
+
+  <!-- Vendor -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"></script>
+
+  <!-- Kolejność ma znaczenie: najpierw dane, potem funkcje pomocnicze, na końcu logika -->
+  <script src="js/data.js"></script>
+  <script src="js/functions.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

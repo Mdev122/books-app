@@ -1,0 +1,18 @@
+.books-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.book__image {
+  display: inline-block;
+}
+
+.book__image.favorite {
+  outline: 3px solid gold;
+}
+
+.book__image.hidden {
+  filter: grayscale(100%);
+  opacity: 0.3;
+}
