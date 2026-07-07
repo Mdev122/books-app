@@ -1,0 +1,20 @@
+refactor: convert app to OOP - BooksList class
+
+- cała logika aplikacji przeniesiona do klasy BooksList, zgodnie
+  z konwencją z projektu Pizzeria (this.dom, thisBooksList = this
+  w callbackach, żeby zachować kontekst instancji)
+- constructor(): initData() -> getElements() -> render() -> initActions()
+- initData(): this.data = dataSource.books, this.favoriteBooks = [],
+  this.filters = [] - stan aplikacji jako właściwości instancji
+  zamiast osobnych zmiennych w domknięciu modułu
+- getElements(): referencje do DOM (wrapper listy książek, formularz
+  filtrów) zebrane w this.dom
+- render(): generuje HTML z szablonu Handlebars dla każdej książki
+  (z doliczonym ratingBgc/ratingWidth) i dokleja do this.dom.wrapper
+- initActions(): dwa nasłuchiwacze przez event delegation - dblclick
+  na okładce (ulubione) oraz click na formularzu filtrów
+- filterBooks(): filtrowanie po details.adults/nonFiction, dodawanie/
+  usuwanie klasy .hidden
+- determineRatingBgc(): zwraca gradient CSS zależnie od progu ratingu
+- select i templates pozostają poza klasą jako stałe konfiguracyjne
+- poza ciałem klasy tylko jedna linijka: const app = new BooksList();
