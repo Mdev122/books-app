@@ -1,25 +1,25 @@
 /* global Handlebars, dataSource, utils */
 
 {
-  const select = {
-    templateOf: {
-      book: '#template-book',
-    },
-    containerOf: {
-      bookList: '.books-list',
-    },
-    form: {
-      filters: '.filters form',
-    },
-  };
-
-  const templates = {
-    book: Handlebars.compile(document.querySelector(select.templateOf.book).innerHTML),
-  };
-
   class BooksList {
     constructor() {
       const thisBooksList = this;
+
+      thisBooksList.select = {
+        templateOf: {
+          book: '#template-book',
+        },
+        containerOf: {
+          bookList: '.books-list',
+        },
+        form: {
+          filters: '.filters form',
+        },
+      };
+
+      thisBooksList.templates = {
+        book: Handlebars.compile(document.querySelector(thisBooksList.select.templateOf.book).innerHTML),
+      };
 
       thisBooksList.initData();
       thisBooksList.getElements();
@@ -39,8 +39,8 @@
       const thisBooksList = this;
 
       thisBooksList.dom = {};
-      thisBooksList.dom.wrapper = document.querySelector(select.containerOf.bookList);
-      thisBooksList.dom.filterForm = document.querySelector(select.form.filters);
+      thisBooksList.dom.wrapper = document.querySelector(thisBooksList.select.containerOf.bookList);
+      thisBooksList.dom.filterForm = document.querySelector(thisBooksList.select.form.filters);
     }
 
     render() {
@@ -50,7 +50,7 @@
         const ratingBgc = thisBooksList.determineRatingBgc(book.rating);
         const ratingWidth = book.rating * 10;
 
-        const generatedHTML = templates.book(Object.assign({}, book, {ratingBgc, ratingWidth}));
+        const generatedHTML = thisBooksList.templates.book(Object.assign({}, book, {ratingBgc, ratingWidth}));
         const generatedDOM = utils.createDOMFromHTML(generatedHTML);
 
         thisBooksList.dom.wrapper.appendChild(generatedDOM);
@@ -81,6 +81,11 @@
           bookImage.classList.add('favorite');
           thisBooksList.favoriteBooks.push(bookId);
         }
+      });
+
+      // zapobiega przeładowaniu strony po kliknięciu przycisku submit / Enter
+      thisBooksList.dom.filterForm.addEventListener('submit', function(event) {
+        event.preventDefault();
       });
 
       // zmiana checkboxa w formularzu filtrów (event delegation)
